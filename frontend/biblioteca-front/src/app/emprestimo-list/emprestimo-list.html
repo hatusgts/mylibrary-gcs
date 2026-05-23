@@ -1,0 +1,55 @@
+<div>
+  <div>
+    <h2>Empréstimos Ativos</h2>
+    <a routerLink="/emprestimos/novo">Novo Empréstimo</a>
+  </div>
+
+  @if (sucesso()) {
+    <p style="color: green;">{{ sucesso() }}</p>
+  }
+
+  @if (erro()) {
+    <p style="color: red;">{{ erro() }}</p>
+  }
+
+  @if (emprestimos().length === 0 && !erro()) {
+    <p>Nenhum empréstimo ativo.</p>
+  }
+
+  @if (emprestimos().length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Livro</th>
+          <th>Pessoa</th>
+          <th>Telefone</th>
+          <th>Emprestado em</th>
+          <th>Devolução prevista</th>
+          <th>Situação</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (e of emprestimos(); track e.id) {
+          <tr>
+            <td>{{ e.livro.titulo }}</td>
+            <td>{{ e.nomePessoa }}</td>
+            <td>{{ e.telefone }}</td>
+            <td>{{ e.dataEmprestimo }}</td>
+            <td>{{ e.dataDevolucaoPrevista }}</td>
+            <td>
+              @if (estaAtrasado(e.dataDevolucaoPrevista)) {
+                <span style="color: red;">Atrasado</span>
+              } @else {
+                <span style="color: green;">No prazo</span>
+              }
+            </td>
+            <td>
+              <button (click)="devolver(e.id!)">Devolver</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
