@@ -53,7 +53,8 @@ public class LivroService {
         Optional<Livro> livro = livroRepository.findById(id);
         if (livro.isEmpty()) return false;
         if (livro.get().getStatus() == StatusLivro.EMPRESTADO) {
-            throw new IllegalStateException("Não é possível excluir livro emprestado.");
+            throw new IllegalStateException(
+                "Não é possível excluir o livro \"" + livro.get().getTitulo() + "\": está atualmente emprestado.");
         }
         livroRepository.deleteById(id);
         return true;
