@@ -1,0 +1,52 @@
+<div>
+  <h2>Novo Empréstimo</h2>
+
+  @if (erro()) {
+    <p style="color: red;">{{ erro() }}</p>
+  }
+
+  @if (livrosDisponiveis().length === 0) {
+    <p>Nenhum livro disponível para empréstimo.</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+    <div>
+      <label for="livroId">Livro *</label>
+      <select id="livroId" formControlName="livroId">
+        <option [ngValue]="null" disabled>Selecione um livro</option>
+        @for (livro of livrosDisponiveis(); track livro.id) {
+          <option [ngValue]="livro.id">{{ livro.titulo }} — {{ livro.autor }}</option>
+        }
+      </select>
+      @if (form.get('livroId')?.invalid && form.get('livroId')?.touched) {
+        <span style="color: red;">Livro é obrigatório.</span>
+      }
+    </div>
+
+    <div>
+      <label for="nomePessoa">Nome da Pessoa *</label>
+      <input id="nomePessoa" formControlName="nomePessoa" type="text" />
+      @if (form.get('nomePessoa')?.invalid && form.get('nomePessoa')?.touched) {
+        <span style="color: red;">Nome é obrigatório.</span>
+      }
+    </div>
+
+    <div>
+      <label for="telefone">Telefone</label>
+      <input id="telefone" formControlName="telefone" type="text" />
+    </div>
+
+    <div>
+      <label for="dataDevolucaoPrevista">Data de Devolução Prevista *</label>
+      <input id="dataDevolucaoPrevista" formControlName="dataDevolucaoPrevista" type="date" />
+      @if (form.get('dataDevolucaoPrevista')?.invalid && form.get('dataDevolucaoPrevista')?.touched) {
+        <span style="color: red;">Data de devolução é obrigatória.</span>
+      }
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="form.invalid">Emprestar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
