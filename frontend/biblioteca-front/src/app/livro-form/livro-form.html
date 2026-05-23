@@ -1,0 +1,53 @@
+<div>
+  <h2>Novo Livro</h2>
+
+  @if (erro()) {
+    <p style="color: red;">{{ erro() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+    <div>
+      <label for="titulo">Título *</label>
+      <input id="titulo" formControlName="titulo" type="text" />
+      @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
+        <span style="color: red;">Título é obrigatório.</span>
+      }
+    </div>
+
+    <div>
+      <label for="autor">Autor *</label>
+      <input id="autor" formControlName="autor" type="text" />
+      @if (form.get('autor')?.invalid && form.get('autor')?.touched) {
+        <span style="color: red;">Autor é obrigatório.</span>
+      }
+    </div>
+
+    <div>
+      <label for="isbn">ISBN</label>
+      <input id="isbn" formControlName="isbn" type="text" />
+    </div>
+
+    <div>
+      <label for="ano">Ano</label>
+      <input id="ano" formControlName="ano" type="number" />
+    </div>
+
+    <div>
+      <label for="categoriaId">Categoria *</label>
+      <select id="categoriaId" formControlName="categoriaId">
+        <option [ngValue]="null" disabled>Selecione uma categoria</option>
+        @for (cat of categorias(); track cat.id) {
+          <option [ngValue]="cat.id">{{ cat.nome }}</option>
+        }
+      </select>
+      @if (form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched) {
+        <span style="color: red;">Categoria é obrigatória.</span>
+      }
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="form.invalid">Salvar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
