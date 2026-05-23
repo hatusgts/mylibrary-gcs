@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.1] - 2026-05-23
+
+### Fixed
+- Mensagem de erro ao tentar excluir livro emprestado agora inclui o título do livro (Issue #7)
+
 ## [1.0.0] - 2026-05-23
 
 ### Added
