@@ -3,6 +3,8 @@ import { CategoriaList } from './categoria-list/categoria-list';
 import { CategoriaForm } from './categoria-form/categoria-form';
 import { LivroList } from './livro-list/livro-list';
 import { LivroForm } from './livro-form/livro-form';
+import { EmprestimoList } from './emprestimo-list/emprestimo-list';
+import { EmprestimoForm } from './emprestimo-form/emprestimo-form';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'categorias', pathMatch: 'full' },
@@ -10,4 +12,6 @@ export const routes: Routes = [
   { path: 'categorias/nova', component: CategoriaForm },
   { path: 'livros', component: LivroList },
   { path: 'livros/novo', component: LivroForm },
+  { path: 'emprestimos', component: EmprestimoList },
+  { path: 'emprestimos/novo', component: EmprestimoForm },
 ];
