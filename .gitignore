@@ -1,0 +1,29 @@
+# Ferramentas de IA
+.claude/
+.cursor/
+.copilot/
+CLAUDE.md
+
+# Backend — Maven
+backend/*/target/
+backend/*/.mvn/
+!backend/*/.mvn/wrapper/
+*.class
+*.jar
+*.war
+
+# Frontend — Angular
+frontend/*/node_modules/
+frontend/*/dist/
+frontend/*/.angular/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db

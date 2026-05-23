@@ -1,0 +1,27 @@
+<div>
+  <h2>Nova Categoria</h2>
+
+  @if (erro()) {
+    <p style="color: red;">{{ erro() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+    <div>
+      <label for="nome">Nome *</label>
+      <input id="nome" formControlName="nome" type="text" />
+      @if (form.get('nome')?.invalid && form.get('nome')?.touched) {
+        <span style="color: red;">Nome é obrigatório.</span>
+      }
+    </div>
+
+    <div>
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" formControlName="descricao" rows="3"></textarea>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="form.invalid">Salvar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
