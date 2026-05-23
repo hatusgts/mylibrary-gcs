@@ -1,0 +1,70 @@
+<div>
+  <div>
+    <h2>Livros</h2>
+    <a routerLink="/livros/novo">Novo Livro</a>
+  </div>
+
+  <div>
+    <input
+      #inputBusca
+      type="text"
+      placeholder="Buscar por título ou autor..."
+      (input)="filtroBusca.set($any($event.target).value)"
+    />
+    <select #selectCategoria (change)="filtroCategoriaId.set($any($event.target).value); carregar()">
+      <option value="">Todas as categorias</option>
+      @for (cat of categorias(); track cat.id) {
+        <option [value]="cat.id">{{ cat.nome }}</option>
+      }
+    </select>
+    <select #selectStatus (change)="filtroStatus.set($any($event.target).value); carregar()">
+      <option value="">Todos os status</option>
+      <option value="DISPONIVEL">Disponível</option>
+      <option value="EMPRESTADO">Emprestado</option>
+    </select>
+    <button (click)="carregar()">Filtrar</button>
+    <button (click)="limpar(selectCategoria, selectStatus, inputBusca)">Limpar</button>
+  </div>
+
+  @if (erro()) {
+    <p style="color: red;">{{ erro() }}</p>
+  }
+
+  @if (livros().length === 0 && !erro()) {
+    <p>Nenhum livro cadastrado.</p>
+  }
+
+  @if (livros().length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>ISBN</th>
+          <th>Ano</th>
+          <th>Categoria</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (livro of livros(); track livro.id) {
+          <tr>
+            <td>{{ livro.titulo }}</td>
+            <td>{{ livro.autor }}</td>
+            <td>{{ livro.isbn }}</td>
+            <td>{{ livro.ano }}</td>
+            <td>{{ livro.categoria.nome }}</td>
+            <td>{{ livro.status }}</td>
+            <td>
+              <button
+                (click)="deletar(livro.id!)"
+                [disabled]="livro.status === 'EMPRESTADO'"
+              >Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
